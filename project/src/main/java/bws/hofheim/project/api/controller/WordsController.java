@@ -24,7 +24,7 @@ public class WordsController {
     }
 
     @PostMapping("/words/addWord")
-    public boolean addWord(String word){
+    public boolean addWord(String word){ //public boolean addWord(@RequestParam String word)  
         return wordsService.addWord(word);
     }
 
