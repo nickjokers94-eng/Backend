@@ -11,9 +11,9 @@ public class UserService {
     public User getUser(int userID) {
         String url = "jdbc:postgresql://localhost:5432/postgres";
         String user = "postgres";
-        String password = "worti";
+        String dbPassword = "worti";
 
-        try (Connection conn = DriverManager.getConnection(url, user, password);
+        try (Connection conn = DriverManager.getConnection(url, user, dbPassword);
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery("SELECT userid, username, role, status FROM users WHERE userid =" + userID)) {
 
@@ -28,4 +28,55 @@ public class UserService {
         }
         return null;
     }
+
+    public boolean registerUser(String username, String password) {
+        String url = "jdbc:postgresql://localhost:5432/postgres";
+        String user = "postgres";
+        String dbPassword = "worti";
+
+try (Connection conn = DriverManager.getConnection(url, user, dbPassword);
+             Statement stmt = conn.createStatement()) {
+             int changedRows = stmt.executeUpdate("INSERT INTO users (username, password, role, status) VALUES ('" + username + "', '" + password + "', 'user', 'locked')");
+             return changedRows > 0;
+             }
+
+        catch (SQLException ex) {
+    System.err.println("Fehler: " + ex.getMessage());
+    return false;
 }
+    }
+
+
+    public boolean passwordChange(String username, String password){
+        String url = "jdbc:postgresql://localhost:5432/postgres";
+        String user = "postgres";
+        String dbPassword = "worti";
+
+        try (Connection conn = DriverManager.getConnection(url, user, dbPassword);
+             Statement stmt = conn.createStatement()) {
+            int changedRows = stmt.executeUpdate("UPDATE users SET password = '" + password + "' WHERE username = '" + username + "'");
+            return changedRows > 0;
+
+        } catch (SQLException ex) {
+            System.err.println("Fehler: " + ex.getMessage());
+            return false;
+        }
+    }
+
+    public boolean unlockUser(String username){
+        String url = "jdbc:postgresql://localhost:5432/postgres";
+        String user = "postgres";
+        String dbPassword = "worti";
+
+        try (Connection conn = DriverManager.getConnection(url, user, dbPassword);
+             Statement stmt = conn.createStatement()) {
+
+            int changedRows = stmt.executeUpdate("UPDATE users SET status = 'unlocked' WHERE username = '" + username + "'");
+            return changedRows > 0;
+
+        } catch (SQLException ex) {
+            System.err.println("Fehler: " + ex.getMessage());
+            return false;
+        }
+    }
+        }
