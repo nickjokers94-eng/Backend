@@ -79,4 +79,21 @@ try (Connection conn = DriverManager.getConnection(url, user, dbPassword);
             return false;
         }
     }
+
+    public boolean deleteUser(String username){
+            String url = "jdbc:postgresql://localhost:5432/postgres";
+            String user = "postgres";
+            String dbPassword = "worti";
+
+            try (Connection conn = DriverManager.getConnection(url, user, dbPassword);
+                 Statement stmt = conn.createStatement()) {
+
+                int changedRows = stmt.executeUpdate("DELETE FROM users WHERE username = '" + username + "'");
+                return changedRows > 0;
+
+            } catch (SQLException ex) {
+                System.err.println("Fehler: " + ex.getMessage());
+                return false;
+            }
         }
+    }

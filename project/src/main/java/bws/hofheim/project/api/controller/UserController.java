@@ -30,7 +30,7 @@ public class UserController {
     }
 
 
-    @PutMapping("user/password")
+    @PutMapping("user/passwordChange")
     public boolean passwordChange(@RequestParam String username, @RequestParam String password){
         return userService.passwordChange(username, password);
     }
@@ -44,5 +44,8 @@ public class UserController {
         return userService.unlockUser(username);
     }
 
-
+    @DeleteMapping("user/deleteUser")
+    public boolean deleteUser(@RequestParam String username){
+        return userService.deleteUser(username);
+    }
 }
