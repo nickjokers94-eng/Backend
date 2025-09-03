@@ -21,6 +21,7 @@ public class WordsController {
     @GetMapping("/words")
     public List<Map<String, Object>> getWords() {
         return wordsService.getWords();
+
     }
 
     @PostMapping("/words/addWord")
