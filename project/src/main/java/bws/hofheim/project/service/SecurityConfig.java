@@ -21,6 +21,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authz -> authz
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // OPTIONS ohne Auth
+                        .requestMatchers(HttpMethod.POST, "/user/register").permitAll() // Registrierung ohne Auth
                         .anyRequest().authenticated()
                 )
                 .httpBasic(withDefaults())
@@ -33,7 +34,7 @@ public class SecurityConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**") // Alle Pfade, nicht nur "/"
-                        .allowedOrigins("http://localhost:5173") // Dein korrekter Port
+                        .allowedOrigins("http://localhost:5177") // Dein korrekter Port
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
                         .allowCredentials(true); // Wichtig für Basic Auth!
