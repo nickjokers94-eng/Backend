@@ -29,6 +29,11 @@ public class UserController {
 
     }
 
+    @PostMapping("/user/login")
+    public User login(@RequestParam String username, @RequestParam String password) {
+        return userService.loginUser(username, password);
+}
+
 
     @PutMapping("user/passwordChange")
     public boolean passwordChange(@RequestParam String username, @RequestParam String password){
