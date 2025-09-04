@@ -21,7 +21,7 @@ public class HighscoresService {
         try (Connection conn = DriverManager.getConnection(url, user, dbPassword);
              Statement stmt = conn.createStatement()) {
 
-            ResultSet rs = stmt.executeQuery("SELECT score, userid, username FROM highscores ORDER BY score DESC");
+            ResultSet rs = stmt.executeQuery("SELECT score, userid, username FROM highscores ORDER BY score DESC LIMIT 10");
 
             while (rs.next()) {
                 Map<String, Object> highscore = new HashMap<>();

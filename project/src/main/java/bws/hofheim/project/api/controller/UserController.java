@@ -17,8 +17,8 @@ public class UserController {
 
 
     @GetMapping("/user")
-    public User getUser(@RequestParam int userID){
-        return userService.getUser(userID);
+    public User getUser(@RequestParam String username){
+        return userService.getUser(username);
 
     }
 
@@ -52,5 +52,10 @@ public class UserController {
     @DeleteMapping("user/deleteUser")
     public boolean deleteUser(@RequestParam String username){
         return userService.deleteUser(username);
+    }
+
+    @PostMapping("user/createUser")
+    public boolean createUser(@RequestParam String username, @RequestParam String password, @RequestParam String role){
+        return userService.createUser(username, password, role);
     }
 }

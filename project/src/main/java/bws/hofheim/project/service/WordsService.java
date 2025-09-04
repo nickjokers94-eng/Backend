@@ -13,7 +13,7 @@ import java.util.Map;
 @Service
 public class WordsService {
 
-    @GetMapping("/words")
+
     public List<Map<String, Object>> getWords() {
         String url = "jdbc:postgresql://localhost:5432/postgres";
         String user = "postgres";
@@ -39,7 +39,7 @@ public class WordsService {
         return words;
     }
 
-    @PostMapping("/words/addWord")
+
     public boolean addWord(String word) {
         String url = "jdbc:postgresql://localhost:5432/postgres";
         String user = "postgres";
@@ -56,4 +56,38 @@ public class WordsService {
             return false;
         }
     }
+
+    public boolean deleteWord(String word) {
+        String url = "jdbc:postgresql://localhost:5432/postgres";
+        String user = "postgres";
+        String dbPassword = "worti";
+
+        try (Connection conn = DriverManager.getConnection(url, user, dbPassword);
+             Statement stmt = conn.createStatement()) {
+
+            int changedRows = stmt.executeUpdate("DELETE FROM words WHERE word = '" + word + "'");
+            return changedRows > 0;
+
+        } catch (SQLException ex) {
+            System.err.println("Fehler: " + ex.getMessage());
+            return false;
+        }
     }
+
+    public boolean changeWord(String word, String wordUpdate) {
+        String url = "jdbc:postgresql://localhost:5432/postgres";
+        String user = "postgres";
+        String dbPassword = "worti";
+
+        try (Connection conn = DriverManager.getConnection(url, user, dbPassword);
+             Statement stmt = conn.createStatement()) {
+
+            int changedRows = stmt.executeUpdate("UPDATE words SET word = '" + wordUpdate + "' WHERE word = '" + word + "'");
+            return changedRows > 0;
+
+        } catch (SQLException ex) {
+            System.err.println("Fehler: " + ex.getMessage());
+            return false;
+        }
+    }
+}

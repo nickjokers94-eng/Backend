@@ -2,10 +2,7 @@ package bws.hofheim.project.api.controller;
 
 import bws.hofheim.project.service.WordsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -27,4 +24,10 @@ public class WordsController {
     public boolean addWord(@RequestParam String word) {
         return wordsService.addWord(word);
     }
+
+    @DeleteMapping("/words/deleteWord")
+    public boolean deleteWord(@RequestParam String word){return wordsService.deleteWord(word);}
+
+    @PutMapping("/words/changeWord")
+    public boolean changeWord(@RequestParam String word, String wordUpdate){return wordsService.changeWord(word, wordUpdate);}
 }
