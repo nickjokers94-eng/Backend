@@ -1,9 +1,12 @@
 package bws.hofheim.project.service;
 
 import bws.hofheim.project.api.model.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,13 +14,14 @@ import java.util.List;
 @Service
 public class UserService {
 
-    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    @Autowired
+    private DataSource dataSource;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     private Connection getConnection() throws SQLException {
-        String url = "jdbc:postgresql://localhost:5432/postgres";
-        String user = "postgres";
-        String dbPassword = "worti";
-        return DriverManager.getConnection(url, user, dbPassword);
+        return dataSource.getConnection();
     }
 
     public User getUser(String username) {

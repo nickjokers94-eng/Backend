@@ -1,7 +1,9 @@
 package bws.hofheim.project.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.sql.DataSource;
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -13,11 +15,11 @@ import java.util.Map;
 @Service
 public class HighscoresService {
 
+    @Autowired
+    private DataSource dataSource;
+
     private Connection getConnection() throws SQLException {
-        String url = "jdbc:postgresql://localhost:5432/postgres";
-        String user = "postgres";
-        String dbPassword = "worti";
-        return DriverManager.getConnection(url, user, dbPassword);
+        return dataSource.getConnection();
     }
 
     public List<Map<String, Object>> getHighscores() {
