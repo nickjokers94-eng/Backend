@@ -24,7 +24,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/user/register").permitAll() // Registrierung ohne Auth
                         .anyRequest().authenticated()
                 )
-                .httpBasic(withDefaults())
+                .httpBasic(httpBasic -> httpBasic.realmName("myApp"))
                 .build();
     }
 
@@ -34,7 +34,7 @@ public class SecurityConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**") // Alle Pfade, nicht nur "/"
-                        .allowedOrigins("http://localhost:5177") // Dein korrekter Port
+                        .allowedOrigins("http://localhost:5174") // Dein korrekter Port
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
                         .allowCredentials(true); // Wichtig für Basic Auth!
