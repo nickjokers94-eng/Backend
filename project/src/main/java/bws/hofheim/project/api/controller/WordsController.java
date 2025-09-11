@@ -30,4 +30,9 @@ public class WordsController {
 
     @PutMapping("/words/changeWord")
     public boolean changeWord(@RequestParam String word, String wordUpdate){return wordsService.changeWord(word, wordUpdate);}
+
+    @GetMapping("/words/randomWord")
+    public String getRandomWord() {
+        return wordsService.getRandomWord();
+    }
 }

@@ -90,4 +90,26 @@ public class WordsService {
             return false;
         }
     }
+    public String getRandomWord() {
+        String url = "jdbc:postgresql://localhost:5432/postgres";
+        String user = "postgres";
+        String dbPassword = "worti";
+        String randomWord = null;
+
+        try (Connection conn = DriverManager.getConnection(url, user, dbPassword);
+             Statement stmt = conn.createStatement()) {
+
+            // Hole ein zufälliges Wort aus der Tabelle
+            ResultSet rs = stmt.executeQuery("SELECT word FROM words ORDER BY RANDOM() LIMIT 1");
+
+            if (rs.next()) {
+                randomWord = rs.getString("word");
+            }
+
+        } catch (SQLException ex) {
+            System.err.println("Fehler: " + ex.getMessage());
+        }
+
+        return randomWord != null ? randomWord : "ERROR";
+    }
 }

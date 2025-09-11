@@ -4,6 +4,9 @@ import bws.hofheim.project.api.model.User;
 import bws.hofheim.project.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
+import java.util.Map;
 
 @RestController
 public class UserController {
@@ -30,9 +33,14 @@ public class UserController {
     }
 
     @PostMapping("/user/login")
-    public User login(@RequestParam String username, @RequestParam String password) {
-        return userService.loginUser(username, password);
-}
+    public ResponseEntity<?> login(@RequestParam String username, @RequestParam String password) {
+        User user = userService.loginUser(username, password);
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(Map.of("error", "Anmeldedaten nicht korrekt"));
+        }
+        return ResponseEntity.ok(user);
+    }
 
 
     @PutMapping("user/passwordChange")

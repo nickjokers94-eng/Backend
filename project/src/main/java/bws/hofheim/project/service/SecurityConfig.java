@@ -18,13 +18,14 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
                 .cors(withDefaults()) // CORS aktivieren
-                .csrf(csrf -> csrf.disable())
+                .csrf(csrf -> csrf.disable()) // CSRF deaktivieren
                 .authorizeHttpRequests(authz -> authz
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // OPTIONS ohne Auth
+                        .requestMatchers(HttpMethod.POST, "/user/login").permitAll() // Login ohne Auth
                         .requestMatchers(HttpMethod.POST, "/user/register").permitAll() // Registrierung ohne Auth
-                        .anyRequest().authenticated()
+                        .anyRequest().authenticated() // Alle anderen Requests benötigen Authentifizierung
                 )
-                .httpBasic(withDefaults())
+                .httpBasic(withDefaults()) // HTTP Basic Auth aktivieren
                 .build();
     }
 
@@ -34,7 +35,7 @@ public class SecurityConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**") // Alle Pfade, nicht nur "/"
-                        .allowedOrigins("http://localhost:5177") // Dein korrekter Port
+                        .allowedOrigins("http://localhost:5173") // Dein korrekter Port
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
                         .allowCredentials(true); // Wichtig für Basic Auth!

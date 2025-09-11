@@ -36,4 +36,20 @@ public class HighscoresService {
         }
         return highscores;
     }
+    public void saveHighscore(String username, int score) {
+        String url = "jdbc:postgresql://localhost:5432/postgres";
+        String user = "postgres";
+        String dbPassword = "worti";
+
+        try (Connection conn = DriverManager.getConnection(url, user, dbPassword)) {
+            String sql = "INSERT INTO highscores (username, score) VALUES (?, ?)";
+            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                stmt.setString(1, username);
+                stmt.setInt(2, score);
+                stmt.executeUpdate();
+            }
+        } catch (SQLException ex) {
+            System.err.println("Fehler beim Speichern des Highscores: " + ex.getMessage());
+        }
+    }
 }
