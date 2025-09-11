@@ -24,7 +24,9 @@ public class HighscoresController {
 
     // NEU: Punkte speichern
     @PostMapping("/highscores/save")
-    public void saveHighscore(@RequestParam String username, @RequestParam int score) {
+    public void saveHighscore(@RequestBody Map<String, Object> payload) {
+        String username = (String) payload.get("username");
+        int score = (int) payload.get("score");
         highscoresService.saveHighscore(username, score);
     }
 }
