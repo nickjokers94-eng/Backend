@@ -42,29 +42,43 @@ public class HighscoresService {
         String dbPassword = "worti";
 
         try (Connection conn = DriverManager.getConnection(url, user, dbPassword)) {
-            // Prüfen, ob Spieler schon existiert
-            String selectSql = "SELECT score FROM highscores WHERE username = ?";
+            // Hole userid
+            int userid = -1;
+            try (PreparedStatement userStmt = conn.prepareStatement("SELECT userid FROM users WHERE username = ?")) {
+                userStmt.setString(1, username);
+                ResultSet rs = userStmt.executeQuery();
+                if (rs.next()) {
+                    userid = rs.getInt("userid");
+                }
+            }
+            if (userid == -1) {
+                System.err.println("Kein User gefunden für Highscore: " + username);
+                return;
+            }
+
+            // Prüfen, ob Highscore-Eintrag existiert
+            String selectSql = "SELECT score FROM highscores WHERE userid = ?";
             try (PreparedStatement selectStmt = conn.prepareStatement(selectSql)) {
-                selectStmt.setString(1, username);
+                selectStmt.setInt(1, userid);
                 ResultSet rs = selectStmt.executeQuery();
                 if (rs.next()) {
                     int oldScore = rs.getInt("score");
                     if (score > oldScore) {
                         // Highscore aktualisieren
-                        String updateSql = "UPDATE highscores SET score = ? WHERE username = ?";
+                        String updateSql = "UPDATE highscores SET score = ? WHERE userid = ?";
                         try (PreparedStatement updateStmt = conn.prepareStatement(updateSql)) {
                             updateStmt.setInt(1, score);
-                            updateStmt.setString(2, username);
+                            updateStmt.setInt(2, userid);
                             updateStmt.executeUpdate();
                         }
                     }
-                    // Wenn score <= oldScore: nichts tun
                 } else {
-                    // Neuer Spieler: Eintrag anlegen
-                    String insertSql = "INSERT INTO highscores (username, score) VALUES (?, ?)";
+                    // Neuer Highscore-Eintrag
+                    String insertSql = "INSERT INTO highscores (userid, username, score) VALUES (?, ?, ?)";
                     try (PreparedStatement insertStmt = conn.prepareStatement(insertSql)) {
-                        insertStmt.setString(1, username);
-                        insertStmt.setInt(2, score);
+                        insertStmt.setInt(1, userid);
+                        insertStmt.setString(2, username);
+                        insertStmt.setInt(3, score);
                         insertStmt.executeUpdate();
                     }
                 }
@@ -72,5 +86,29 @@ public class HighscoresService {
         } catch (SQLException ex) {
             System.err.println("Fehler beim Speichern des Highscores: " + ex.getMessage());
         }
+    }
+    public List<Map<String, Object>> getAllHighscores() {
+        String url = "jdbc:postgresql://localhost:5432/postgres";
+        String user = "postgres";
+        String dbPassword = "worti";
+        List<Map<String, Object>> highscores = new ArrayList<>();
+
+        try (Connection conn = DriverManager.getConnection(url, user, dbPassword);
+             Statement stmt = conn.createStatement()) {
+
+            ResultSet rs = stmt.executeQuery("SELECT score, userid, username FROM highscores ORDER BY score DESC, username ASC");
+
+            while (rs.next()) {
+                Map<String, Object> highscore = new HashMap<>();
+                highscore.put("score", rs.getInt("score"));
+                highscore.put("userid", rs.getInt("userid"));
+                highscore.put("username", rs.getString("username"));
+                highscores.add(highscore);
+            }
+
+        } catch (SQLException ex) {
+            System.err.println("Fehler: " + ex.getMessage());
+        }
+        return highscores;
     }
 }

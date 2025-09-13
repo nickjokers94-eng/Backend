@@ -205,6 +205,20 @@ public class UserService {
             return false;
         }
     }
-
+    public void createHighscoreEntryForUser(int userid, String username) {
+        String url = "jdbc:postgresql://localhost:5432/postgres";
+        String user = "postgres";
+        String dbPassword = "worti";
+        try (Connection conn = DriverManager.getConnection(url, user, dbPassword);
+             PreparedStatement stmt = conn.prepareStatement(
+                     "INSERT INTO highscores (userid, username, score) VALUES (?, ?, 0) ON CONFLICT (userid) DO NOTHING"
+             )) {
+            stmt.setInt(1, userid);
+            stmt.setString(2, username);
+            stmt.executeUpdate();
+        } catch (SQLException ex) {
+            System.err.println("Fehler beim Anlegen des Highscore-Eintrags: " + ex.getMessage());
+        }
+    }
 }
 

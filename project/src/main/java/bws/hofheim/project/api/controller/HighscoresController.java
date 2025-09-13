@@ -29,4 +29,8 @@ public class HighscoresController {
         int score = (int) payload.get("score");
         highscoresService.saveHighscore(username, score);
     }
+    @GetMapping("/highscores/all")
+    public List<Map<String, Object>> getAllHighscores() {
+        return highscoresService.getAllHighscores();
+    }
 }
