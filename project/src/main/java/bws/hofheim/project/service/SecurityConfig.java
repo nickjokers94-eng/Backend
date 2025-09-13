@@ -34,11 +34,11 @@ public class SecurityConfig {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**") // Alle Pfade, nicht nur "/"
-                        .allowedOrigins("http://localhost:5173") // Dein korrekter Port
+                registry.addMapping("/**")
+                        .allowedOrigins("http://localhost:5173")
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
-                        .allowCredentials(true); // Wichtig für Basic Auth!
+                        .allowCredentials(true);
             }
         };
     }

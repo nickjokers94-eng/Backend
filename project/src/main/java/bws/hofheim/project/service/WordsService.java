@@ -99,7 +99,6 @@ public class WordsService {
         try (Connection conn = DriverManager.getConnection(url, user, dbPassword);
              Statement stmt = conn.createStatement()) {
 
-            // Hole ein zufälliges Wort aus der Tabelle
             ResultSet rs = stmt.executeQuery("SELECT word FROM words ORDER BY RANDOM() LIMIT 1");
 
             if (rs.next()) {

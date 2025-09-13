@@ -13,6 +13,7 @@ public class User {
         this.role = role;
         this.status = status;
     }
+    public User(){}
 
     public int getUserID() {
         return userID;

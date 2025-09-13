@@ -22,7 +22,7 @@ public class HighscoresController {
         return highscoresService.getHighscores();
     }
 
-    // NEU: Punkte speichern
+    //Punkte speichern
     @PostMapping("/highscores/save")
     public void saveHighscore(@RequestBody Map<String, Object> payload) {
         String username = (String) payload.get("username");

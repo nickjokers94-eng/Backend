@@ -50,7 +50,7 @@ public class HighscoresService {
                 if (rs.next()) {
                     int oldScore = rs.getInt("score");
                     if (score > oldScore) {
-                        // Update Highscore
+                        // Highscore aktualisieren
                         String updateSql = "UPDATE highscores SET score = ? WHERE username = ?";
                         try (PreparedStatement updateStmt = conn.prepareStatement(updateSql)) {
                             updateStmt.setInt(1, score);

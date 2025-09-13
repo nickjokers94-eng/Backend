@@ -4,6 +4,7 @@ import bws.hofheim.project.api.model.User;
 import org.springframework.stereotype.Service;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 @Service
@@ -78,7 +79,6 @@ public class UserService {
             if (rs.next()) {
                 String storedPassword = rs.getString("password");
                 if (storedPassword.equals(password)) {
-                    // Return user only if credentials are correct
                     return new User(
                             rs.getInt("userid"),
                             rs.getString("username"),
@@ -94,7 +94,7 @@ public class UserService {
         } catch (SQLException ex) {
             throw new RuntimeException("Database error: " + ex.getMessage(), ex);
         }
-        return null; // Return null if login fails
+        return null;
     }
 
     //ADMIN:
@@ -148,6 +148,7 @@ public class UserService {
 
         }
     }
+
 
 }
 
