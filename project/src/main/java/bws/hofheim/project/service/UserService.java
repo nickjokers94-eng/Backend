@@ -78,18 +78,26 @@ public class UserService {
 
             if (rs.next()) {
                 String storedPassword = rs.getString("password");
-                if (storedPassword.equals(password)) {
+                String status = rs.getString("status");
+                if (!storedPassword.equals(password)) {
+                    return null;
+                }
+                if ("locked".equals(status)) {
                     return new User(
                             rs.getInt("userid"),
                             rs.getString("username"),
                             rs.getString("role"),
-                            rs.getString("status")
+                            "locked"
                     );
-                } else {
-                    System.err.println("Incorrect password.");
                 }
-            } else {
-                System.err.println("User not found.");
+                if ("active".equals(status)) {
+                    return new User(
+                            rs.getInt("userid"),
+                            rs.getString("username"),
+                            rs.getString("role"),
+                            "active"
+                    );
+                }
             }
         } catch (SQLException ex) {
             throw new RuntimeException("Database error: " + ex.getMessage(), ex);
@@ -107,7 +115,7 @@ public class UserService {
         try (Connection conn = DriverManager.getConnection(url, user, dbPassword);
              Statement stmt = conn.createStatement()) {
 
-            int changedRows = stmt.executeUpdate("UPDATE users SET status = 'unlocked' WHERE username = '" + username + "'");
+            int changedRows = stmt.executeUpdate("UPDATE users SET status = 'active' WHERE username = '" + username + "'");
             return changedRows > 0;
 
         } catch (SQLException ex) {
@@ -140,7 +148,7 @@ public class UserService {
 
         try (Connection conn = DriverManager.getConnection(url, user, dbPassword);
              Statement stmt = conn.createStatement()) {
-            int changedRows = stmt.executeUpdate("INSERT INTO users (username, password, role, status) VALUES ('" + username + "', '" + password + "', '" + role + "', 'unlocked')");
+            int changedRows = stmt.executeUpdate("INSERT INTO users (username, password, role, status) VALUES ('" + username + "', '" + password + "', '" + role + "', 'active')");
             return changedRows > 0;
         } catch (SQLException ex) {
             System.err.println("Fehler: " + ex.getMessage());
@@ -148,7 +156,24 @@ public class UserService {
 
         }
     }
+    public List<User> getLockedUsers() {
+        String url = "jdbc:postgresql://localhost:5432/postgres";
+        String user = "postgres";
+        String dbPassword = "worti";
+        List<User> lockedUsers = new ArrayList<>();
 
+        try (Connection conn = DriverManager.getConnection(url, user, dbPassword);
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery("SELECT userid, username, role, status FROM users WHERE status = 'locked'")) {
+
+            while (rs.next()) {
+                lockedUsers.add(new User(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4)));
+            }
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+        return lockedUsers;
+    }
 
 }
 
