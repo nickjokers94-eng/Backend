@@ -1,6 +1,5 @@
 package bws.hofheim.project.service;
 
-// import bws.hofheim.project.api.model.User;
 import org.springframework.stereotype.Service;
 
 import java.sql.*;
@@ -9,10 +8,25 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Service-Klasse für die Verwaltung der Highscores.
+ * Diese Klasse enthält Methoden zum Abrufen, Speichern und Verwalten von Highscores.
+ * Erstellt von: [name]
+ */
 @Service
 public class HighscoresService {
 
+    /**
+     * [getHighscores] - Ruft die Top 10 Highscores aus der Datenbank ab.
+     * Erstellt von: [name]
+     *
+     * @return Eine Liste von Maps, die die Highscores enthalten. Jede Map enthält:
+     * - "score" (int): Die Punktzahl.
+     * - "userid" (int): Die ID des Benutzers.
+     * - "username" (String): Den Benutzernamen.
+     */
     public List<Map<String, Object>> getHighscores() {
+        // Datenbankverbindungsdetails
         String url = "jdbc:postgresql://localhost:5432/postgres";
         String user = "postgres";
         String dbPassword = "worti";
@@ -36,13 +50,22 @@ public class HighscoresService {
         }
         return highscores;
     }
+
+    /**
+     * [saveHighscore] - Speichert einen neuen Highscore oder aktualisiert einen bestehenden.
+     * Erstellt von: [name]
+     *
+     * @param username Der Benutzername des Benutzers.
+     * @param score Die Punktzahl, die gespeichert oder aktualisiert werden soll.
+     */
     public void saveHighscore(String username, int score) {
+        // Datenbankverbindungsdetails
         String url = "jdbc:postgresql://localhost:5432/postgres";
         String user = "postgres";
         String dbPassword = "worti";
 
         try (Connection conn = DriverManager.getConnection(url, user, dbPassword)) {
-            // Hole userid
+            // Hole die Benutzer-ID (userid)
             int userid = -1;
             try (PreparedStatement userStmt = conn.prepareStatement("SELECT userid FROM users WHERE username = ?")) {
                 userStmt.setString(1, username);
@@ -56,7 +79,7 @@ public class HighscoresService {
                 return;
             }
 
-            // Prüfen, ob Highscore-Eintrag existiert
+            // Prüfen, ob ein Highscore-Eintrag existiert
             String selectSql = "SELECT score FROM highscores WHERE userid = ?";
             try (PreparedStatement selectStmt = conn.prepareStatement(selectSql)) {
                 selectStmt.setInt(1, userid);
@@ -87,7 +110,18 @@ public class HighscoresService {
             System.err.println("Fehler beim Speichern des Highscores: " + ex.getMessage());
         }
     }
+
+    /**
+     * [getAllHighscores] - Ruft alle Highscores aus der Datenbank ab, sortiert nach Punktzahl und Benutzernamen.
+     * Erstellt von: [name]
+     *
+     * @return Eine Liste von Maps, die alle Highscores enthalten. Jede Map enthält:
+     * - "score" (int): Die Punktzahl.
+     * - "userid" (int): Die ID des Benutzers.
+     * - "username" (String): Den Benutzernamen.
+     */
     public List<Map<String, Object>> getAllHighscores() {
+        // Datenbankverbindungsdetails
         String url = "jdbc:postgresql://localhost:5432/postgres";
         String user = "postgres";
         String dbPassword = "worti";

@@ -10,10 +10,27 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Service-Klasse für die Verwaltung von Wörtern.
+ * Diese Klasse enthält Methoden zum Abrufen, Hinzufügen, Löschen, Aktualisieren und Abrufen eines zufälligen Wortes.
+ * Erstellt von: [name]
+ */
 @Service
 public class WordsService {
 
+    // Datenbankverbindungsdetails
+    private final String url = "jdbc:postgresql://localhost:5432/postgres";
+    private final String user = "postgres";
+    private final String dbPassword = "worti";
 
+    /**
+     * [getWords] - Ruft alle Wörter aus der Datenbank ab.
+     * Erstellt von: [name]
+     *
+     * @return Eine Liste von Maps, die die Wörter enthalten. Jede Map enthält:
+     * - "wordid" (int): Die ID des Wortes.
+     * - "word" (String): Das Wort.
+     */
     public List<Map<String, Object>> getWords() {
         String url = "jdbc:postgresql://localhost:5432/postgres";
         String user = "postgres";
@@ -39,7 +56,13 @@ public class WordsService {
         return words;
     }
 
-
+    /**
+     * [addWord] - Fügt ein neues Wort zur Datenbank hinzu.
+     * Erstellt von: [name]
+     *
+     * @param word Das hinzuzufügende Wort.
+     * @return True, wenn das Wort erfolgreich hinzugefügt wurde, andernfalls false.
+     */
     public boolean addWord(String word) {
         String url = "jdbc:postgresql://localhost:5432/postgres";
         String user = "postgres";
@@ -58,6 +81,7 @@ public class WordsService {
             System.err.println("Fehler: " + ex.getMessage());
             return false;
         }
+
         // Einfügen, wenn Wort noch nicht existiert
         try (Connection conn = DriverManager.getConnection(url, user, dbPassword);
              PreparedStatement stmt = conn.prepareStatement("INSERT INTO words (word) VALUES (?)")) {
@@ -70,6 +94,13 @@ public class WordsService {
         }
     }
 
+    /**
+     * [deleteWord] - Löscht ein Wort aus der Datenbank.
+     * Erstellt von: [name]
+     *
+     * @param word Das zu löschende Wort.
+     * @return True, wenn das Wort erfolgreich gelöscht wurde, andernfalls false.
+     */
     public boolean deleteWord(String word) {
         String url = "jdbc:postgresql://localhost:5432/postgres";
         String user = "postgres";
@@ -102,6 +133,14 @@ public class WordsService {
         }
     }
 
+    /**
+     * [changeWord] - Aktualisiert ein bestehendes Wort in der Datenbank.
+     * Erstellt von: [name]
+     *
+     * @param word Das zu aktualisierende Wort.
+     * @param wordUpdate Der neue Wert für das Wort.
+     * @return True, wenn das Wort erfolgreich aktualisiert wurde, andernfalls false.
+     */
     public boolean changeWord(String word, String wordUpdate) {
         String url = "jdbc:postgresql://localhost:5432/postgres";
         String user = "postgres";
@@ -118,6 +157,13 @@ public class WordsService {
             return false;
         }
     }
+
+    /**
+     * [getRandomWord] - Ruft ein zufälliges Wort aus der Datenbank ab.
+     * Erstellt von: [name]
+     *
+     * @return Ein zufälliges Wort als String oder "ERROR", wenn ein Fehler auftritt.
+     */
     public String getRandomWord() {
         String url = "jdbc:postgresql://localhost:5432/postgres";
         String user = "postgres";
