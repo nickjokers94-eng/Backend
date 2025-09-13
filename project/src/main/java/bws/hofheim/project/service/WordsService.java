@@ -48,7 +48,7 @@ public class WordsService {
         try (Connection conn = DriverManager.getConnection(url, user, dbPassword);
              Statement stmt = conn.createStatement()) {
 
-            int changedRows = stmt.executeUpdate("INSERT INTO words (word) VALUES ('" + word + "')");
+            int changedRows = stmt.executeUpdate("INSERT INTO words (word) VALUES ('" + word.toUpperCase() + "')");
             return changedRows > 0;
 
         } catch (SQLException ex) {
