@@ -44,13 +44,26 @@ public class WordsService {
         String url = "jdbc:postgresql://localhost:5432/postgres";
         String user = "postgres";
         String dbPassword = "worti";
+        String upperWord = word.toUpperCase();
 
+        // Prüfen, ob das Wort schon existiert
         try (Connection conn = DriverManager.getConnection(url, user, dbPassword);
-             Statement stmt = conn.createStatement()) {
-
-            int changedRows = stmt.executeUpdate("INSERT INTO words (word) VALUES ('" + word.toUpperCase() + "')");
+             PreparedStatement checkStmt = conn.prepareStatement("SELECT COUNT(*) FROM words WHERE word = ?")) {
+            checkStmt.setString(1, upperWord);
+            ResultSet rs = checkStmt.executeQuery();
+            if (rs.next() && rs.getInt(1) > 0) {
+                return false;
+            }
+        } catch (SQLException ex) {
+            System.err.println("Fehler: " + ex.getMessage());
+            return false;
+        }
+        // Einfügen, wenn Wort noch nicht existiert
+        try (Connection conn = DriverManager.getConnection(url, user, dbPassword);
+             PreparedStatement stmt = conn.prepareStatement("INSERT INTO words (word) VALUES (?)")) {
+            stmt.setString(1, upperWord);
+            int changedRows = stmt.executeUpdate();
             return changedRows > 0;
-
         } catch (SQLException ex) {
             System.err.println("Fehler: " + ex.getMessage());
             return false;
