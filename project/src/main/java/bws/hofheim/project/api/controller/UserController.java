@@ -78,4 +78,8 @@ public class UserController {
     public List<User> getLockedUsers() {
         return userService.getLockedUsers();
     }
+    @PutMapping("/user/updateRole")
+    public boolean updateUserRole(@RequestParam String username, @RequestParam String role) {
+        return userService.updateUserRole(username, role);
+    }
 }

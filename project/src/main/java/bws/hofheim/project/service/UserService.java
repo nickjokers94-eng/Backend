@@ -188,6 +188,23 @@ public class UserService {
         }
         return lockedUsers;
     }
+    public boolean updateUserRole(String username, String newRole) {
+        String url = "jdbc:postgresql://localhost:5432/postgres";
+        String user = "postgres";
+        String dbPassword = "worti";
+
+        try (Connection conn = DriverManager.getConnection(url, user, dbPassword);
+             PreparedStatement stmt = conn.prepareStatement(
+                     "UPDATE users SET role = ? WHERE username = ?")) {
+            stmt.setString(1, newRole);
+            stmt.setString(2, username);
+            int changedRows = stmt.executeUpdate();
+            return changedRows > 0;
+        } catch (SQLException ex) {
+            System.err.println("Fehler: " + ex.getMessage());
+            return false;
+        }
+    }
 
 }
 
