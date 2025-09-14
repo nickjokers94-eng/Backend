@@ -83,12 +83,24 @@ public class UserController {
      * Erstellt von: [Paul Troschke]
      *
      * @param username Der Benutzername des Benutzers.
-     * @param password Das neue Passwort.
+     * @param oldPassword Das alte Passwort.
+     * @param newPassword Das neue Passwort.
      * @return True, wenn das Passwort erfolgreich geändert wurde, andernfalls false.
      */
-    @PutMapping("user/passwordChange")
-    public boolean passwordChange(@RequestParam String username, @RequestParam String password) {
-        return userService.passwordChange(username, password);
+    @PutMapping("/user/passwordChange")
+    public ResponseEntity<?> passwordChange(
+            @RequestParam String username,
+            @RequestParam String oldPassword,
+            @RequestParam String newPassword
+    ) {
+        boolean changed = userService.passwordChange(username, oldPassword, newPassword);
+        if (changed) {
+            return ResponseEntity.ok(true);
+        } else {
+            // Fehler: Altes Passwort stimmt nicht!
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(Map.of("error", "Das bisherige Passwort stimmt nicht überein."));
+        }
     }
 
     // Admin-Funktionen:

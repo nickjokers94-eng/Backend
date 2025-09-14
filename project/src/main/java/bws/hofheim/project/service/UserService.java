@@ -82,14 +82,38 @@ public class UserService {
      * Erstellt von: [Paul Troschke]
      *
      * @param username Der Benutzername, dessen Passwort geändert werden soll.
-     * @param password Das neue Passwort.
+     * @param oldPassword Das alte Passwort.
+     * @param newPassword Das neue Passwort.
      * @return True, wenn das Passwort erfolgreich geändert wurde, andernfalls false.
      */
-    public boolean passwordChange(String username, String password) {
+    public boolean passwordChange(String username, String oldPassword, String newPassword) {
+        String selectQuery = "SELECT password FROM users WHERE username = ?";
+        String updateQuery = "UPDATE users SET password = ? WHERE username = ?";
+
         try (Connection conn = DriverManager.getConnection(url, user, dbPassword);
-             Statement stmt = conn.createStatement()) {
-            int changedRows = stmt.executeUpdate("UPDATE users SET password = '" + password + "' WHERE username = '" + username + "'");
-            return changedRows > 0;
+             PreparedStatement selectStmt = conn.prepareStatement(selectQuery)) {
+
+            selectStmt.setString(1, username);
+            ResultSet rs = selectStmt.executeQuery();
+
+            if (rs.next()) {
+                String currentPassword = rs.getString("password");
+                if (!currentPassword.equals(oldPassword)) {
+                    // Altes Passwort stimmt nicht!
+                    return false;
+                }
+            } else {
+                // User existiert nicht
+                return false;
+            }
+
+            // Passwort stimmt, jetzt ändern
+            try (PreparedStatement updateStmt = conn.prepareStatement(updateQuery)) {
+                updateStmt.setString(1, newPassword);
+                updateStmt.setString(2, username);
+                int changedRows = updateStmt.executeUpdate();
+                return changedRows > 0;
+            }
 
         } catch (SQLException ex) {
             System.err.println("Fehler: " + ex.getMessage());
