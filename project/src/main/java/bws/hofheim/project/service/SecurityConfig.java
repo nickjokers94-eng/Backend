@@ -13,7 +13,6 @@ import static org.springframework.security.config.Customizer.withDefaults;
 
 /**
  * Diese Klasse definiert die Sicherheitsfilterkette und die CORS-Konfiguration.
- * Erstellt von: [name]
  */
 @Configuration
 @EnableWebSecurity
@@ -22,7 +21,7 @@ public class SecurityConfig {
     /**
      * Erstellt die Sicherheitsfilterkette für die Anwendung.
      * Diese Methode konfiguriert die Sicherheitsrichtlinien, wie z.B. CORS, CSRF und Zugriffsrechte.
-     * Erstellt von: [name]
+     * Erstellt von: [Paul Troschke]
      *
      * @param http Das HttpSecurity-Objekt, das zur Konfiguration der Sicherheitsrichtlinien verwendet wird.
      * @return Ein SecurityFilterChain-Objekt, das die Sicherheitsfilterkette darstellt.
@@ -46,7 +45,7 @@ public class SecurityConfig {
     /**
      * Konfiguriert die CORS-Einstellungen der Anwendung.
      * Diese Methode definiert, welche Ursprünge, Methoden und Header für Cross-Origin-Anfragen erlaubt sind.
-     * Erstellt von: [name]
+     * Erstellt von: [Paul Troschke]
      *
      * @return Ein WebMvcConfigurer-Objekt, das die CORS-Konfiguration enthält.
      */
@@ -56,7 +55,7 @@ public class SecurityConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:5173") // Erlaubte Ursprünge
+                        .allowedOrigins("http://localhost:5173")
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // Erlaubte HTTP-Methoden
                         .allowedHeaders("*") // Erlaubte Header
                         .allowCredentials(true); // Anmeldedaten erlauben

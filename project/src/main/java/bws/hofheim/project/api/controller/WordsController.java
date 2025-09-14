@@ -10,7 +10,6 @@ import java.util.Map;
 /**
  * Controller-Klasse für die Verwaltung von Wörtern.
  * Diese Klasse stellt Endpunkte für Operationen wie Abrufen, Hinzufügen, Löschen, Aktualisieren und Abrufen eines zufälligen Wortes bereit.
- * Erstellt von: [name]
  */
 @RestController
 public class WordsController {
@@ -20,7 +19,7 @@ public class WordsController {
 
     /**
      * Konstruktor für die Initialisierung des WordsService.
-     * Erstellt von: [name]
+     * Erstellt von: [Nick Jokers]
      *
      * @param wordsService Der Service, der für die Wörterverwaltung verwendet wird.
      */
@@ -31,7 +30,7 @@ public class WordsController {
 
     /**
      * [getWords] - Ruft alle Wörter aus der Datenbank ab.
-     * Erstellt von: [name]
+     * Erstellt von: [Paul Troschke]
      *
      * @return Eine Liste von Maps, die die Wörter enthalten.
      */
@@ -42,7 +41,7 @@ public class WordsController {
 
     /**
      * [addWord] - Fügt ein neues Wort zur Datenbank hinzu.
-     * Erstellt von: [name]
+     * Erstellt von: [Paul Troschke]
      *
      * @param word Das hinzuzufügende Wort.
      * @return True, wenn das Wort erfolgreich hinzugefügt wurde, andernfalls false.
@@ -54,7 +53,7 @@ public class WordsController {
 
     /**
      * [deleteWord] - Löscht ein Wort aus der Datenbank.
-     * Erstellt von: [name]
+     * Erstellt von: [Nick Jokers]
      *
      * @param word Das zu löschende Wort.
      * @return True, wenn das Wort erfolgreich gelöscht wurde, andernfalls false.
@@ -66,7 +65,7 @@ public class WordsController {
 
     /**
      * [changeWord] - Aktualisiert ein bestehendes Wort in der Datenbank.
-     * Erstellt von: [name]
+     * Erstellt von: [Nick Jokers]
      *
      * @param word Das zu aktualisierende Wort.
      * @param wordUpdate Der neue Wert für das Wort.
@@ -79,7 +78,7 @@ public class WordsController {
 
     /**
      * [getRandomWord] - Ruft ein zufälliges Wort aus der Datenbank ab.
-     * Erstellt von: [name]
+     * Erstellt von: [Nick Jokers]
      *
      * @return Ein zufälliges Wort als String oder "ERROR", wenn ein Fehler auftritt.
      */

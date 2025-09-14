@@ -13,7 +13,6 @@ import java.util.Map;
 /**
  * Service-Klasse für die Verwaltung von Wörtern.
  * Diese Klasse enthält Methoden zum Abrufen, Hinzufügen, Löschen, Aktualisieren und Abrufen eines zufälligen Wortes.
- * Erstellt von: [name]
  */
 @Service
 public class WordsService {
@@ -25,7 +24,7 @@ public class WordsService {
 
     /**
      * [getWords] - Ruft alle Wörter aus der Datenbank ab.
-     * Erstellt von: [name]
+     * Erstellt von: [Paul Troschke]
      *
      * @return Eine Liste von Maps, die die Wörter enthalten. Jede Map enthält:
      * - "wordid" (int): Die ID des Wortes.
@@ -58,7 +57,7 @@ public class WordsService {
 
     /**
      * [addWord] - Fügt ein neues Wort zur Datenbank hinzu.
-     * Erstellt von: [name]
+     * Erstellt von: [Paul Troschke, Nick Jokers überarbeitet]
      *
      * @param word Das hinzuzufügende Wort.
      * @return True, wenn das Wort erfolgreich hinzugefügt wurde, andernfalls false.
@@ -96,7 +95,7 @@ public class WordsService {
 
     /**
      * [deleteWord] - Löscht ein Wort aus der Datenbank.
-     * Erstellt von: [name]
+     * Erstellt von: [Paul Troschke, Nick Jokers überarbeitet]
      *
      * @param word Das zu löschende Wort.
      * @return True, wenn das Wort erfolgreich gelöscht wurde, andernfalls false.
@@ -135,7 +134,7 @@ public class WordsService {
 
     /**
      * [changeWord] - Aktualisiert ein bestehendes Wort in der Datenbank.
-     * Erstellt von: [name]
+     * Erstellt von: [Paul Troschke]
      *
      * @param word Das zu aktualisierende Wort.
      * @param wordUpdate Der neue Wert für das Wort.
@@ -160,7 +159,7 @@ public class WordsService {
 
     /**
      * [getRandomWord] - Ruft ein zufälliges Wort aus der Datenbank ab.
-     * Erstellt von: [name]
+     * Erstellt von: [Nick Jokers]
      *
      * @return Ein zufälliges Wort als String oder "ERROR", wenn ein Fehler auftritt.
      */

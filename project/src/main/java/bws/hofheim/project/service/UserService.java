@@ -10,7 +10,6 @@ import java.util.List;
 /**
  * Service-Klasse für die Verwaltung von Benutzern.
  * Diese Klasse enthält Methoden zum Abrufen, Registrieren, Anmelden, Löschen, Aktualisieren und Verwalten von Benutzern.
- * Erstellt von: [name]
  */
 @Service
 public class UserService {
@@ -22,7 +21,7 @@ public class UserService {
 
     /**
      * [getUser] - Ruft einen Benutzer anhand des Benutzernamens aus der Datenbank ab.
-     * Erstellt von: [name]
+     * Erstellt von: [Paul Troschke]
      *
      * @param username Der Benutzername des gesuchten Benutzers.
      * @return Ein User-Objekt, wenn der Benutzer gefunden wurde, sonst null.
@@ -44,7 +43,7 @@ public class UserService {
 
     /**
      * [registerUser] - Registriert einen neuen Benutzer, sofern der Benutzername noch nicht existiert.
-     * Erstellt von: [name]
+     * Erstellt von: [Paul Troschke]
      *
      * @param username Der gewünschte Benutzername.
      * @param password Das gewünschte Passwort.
@@ -80,7 +79,7 @@ public class UserService {
 
     /**
      * [passwordChange] - Ändert das Passwort eines Benutzers.
-     * Erstellt von: [name]
+     * Erstellt von: [Paul Troschke]
      *
      * @param username Der Benutzername, dessen Passwort geändert werden soll.
      * @param password Das neue Passwort.
@@ -100,7 +99,7 @@ public class UserService {
 
     /**
      * [loginUser] - Meldet einen Benutzer mit Benutzername und Passwort an.
-     * Erstellt von: [name]
+     * Erstellt von: [Paul Troschke, Nick Jokers überarbeitet]
      *
      * @param username Der Benutzername.
      * @param password Das Passwort.
@@ -148,7 +147,7 @@ public class UserService {
 
     /**
      * [unlockUser] - Entsperrt einen Benutzer (setzt Status auf 'active').
-     * Erstellt von: [name]
+     * Erstellt von: [Paul Troschke]
      *
      * @param username Der Benutzername des zu entsperrenden Benutzers.
      * @return True, wenn der Benutzer erfolgreich entsperrt wurde, andernfalls false.
@@ -168,7 +167,7 @@ public class UserService {
 
     /**
      * [deleteUser] - Löscht einen Benutzer aus der Datenbank.
-     * Erstellt von: [name]
+     * Erstellt von: [Paul Troschke]
      *
      * @param username Der Benutzername des zu löschenden Benutzers.
      * @return True, wenn der Benutzer erfolgreich gelöscht wurde, andernfalls false.
@@ -188,7 +187,7 @@ public class UserService {
 
     /**
      * [createUser] - Erstellt einen neuen Benutzer mit einer bestimmten Rolle.
-     * Erstellt von: [name]
+     * Erstellt von: [Paul Troschke]
      *
      * @param username Der Benutzername.
      * @param password Das Passwort.
@@ -209,7 +208,7 @@ public class UserService {
 
     /**
      * [getLockedUsers] - Ruft alle gesperrten Benutzer (Status 'locked') aus der Datenbank ab.
-     * Erstellt von: [name]
+     * Erstellt von: [Nick Jokers]
      *
      * @return Eine Liste von User-Objekten, die gesperrt sind.
      */
@@ -231,7 +230,7 @@ public class UserService {
 
     /**
      * [updateUserRole] - Aktualisiert die Rolle eines Benutzers.
-     * Erstellt von: [name]
+     * Erstellt von: [Nick Jokers]
      *
      * @param username Der Benutzername.
      * @param newRole Die neue Rolle, die zugewiesen werden soll.
@@ -253,7 +252,7 @@ public class UserService {
 
     /**
      * [createHighscoreEntryForUser] - Legt einen Highscore-Eintrag für einen Benutzer an, falls noch nicht vorhanden.
-     * Erstellt von: [name]
+     * Erstellt von: [Nick Jokers]
      *
      * @param userid Die ID des Benutzers.
      * @param username Der Benutzername.

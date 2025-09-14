@@ -13,7 +13,6 @@ import java.util.Map;
 /**
  * Controller-Klasse für die Verwaltung von Benutzern.
  * Diese Klasse stellt Endpunkte für Benutzeroperationen wie Registrierung, Anmeldung und Verwaltung bereit.
- * Erstellt von: [name]
  */
 @RestController
 public class UserController {
@@ -23,7 +22,7 @@ public class UserController {
 
     /**
      * Konstruktor für die Initialisierung des UserService.
-     * Erstellt von: [name]
+     * Erstellt von: [Paul Troschke]
      *
      * @param userService Der Service, der für die Benutzerverwaltung verwendet wird.
      */
@@ -34,7 +33,7 @@ public class UserController {
 
     /**
      * [getUser] - Ruft einen Benutzer anhand seines Benutzernamens ab.
-     * Erstellt von: [name]
+     * Erstellt von: [Paul Troschke]
      *
      * @param username Der Benutzername des abzurufenden Benutzers.
      * @return Ein User-Objekt, das die Benutzerdaten enthält.
@@ -46,7 +45,7 @@ public class UserController {
 
     /**
      * [registerUser] - Registriert einen neuen Benutzer.
-     * Erstellt von: [name]
+     * Erstellt von: [Paul Troschke]
      *
      * @param username Der Benutzername des neuen Benutzers.
      * @param password Das Passwort des neuen Benutzers.
@@ -59,7 +58,7 @@ public class UserController {
 
     /**
      * [login] - Authentifiziert einen Benutzer.
-     * Erstellt von: [name]
+     * Erstellt von: [Paul Troschke, Nick Jokers überarbeitet]
      *
      * @param username Der Benutzername des Benutzers.
      * @param password Das Passwort des Benutzers.
@@ -81,7 +80,7 @@ public class UserController {
 
     /**
      * [passwordChange] - Ändert das Passwort eines Benutzers.
-     * Erstellt von: [name]
+     * Erstellt von: [Paul Troschke]
      *
      * @param username Der Benutzername des Benutzers.
      * @param password Das neue Passwort.
@@ -96,7 +95,7 @@ public class UserController {
 
     /**
      * [unlockUser] - Entsperrt einen Benutzer.
-     * Erstellt von: [name]
+     * Erstellt von: [Paul Troschke]
      *
      * @param username Der Benutzername des zu entsperrenden Benutzers.
      * @return True, wenn der Benutzer erfolgreich entsperrt wurde, andernfalls false.
@@ -108,7 +107,7 @@ public class UserController {
 
     /**
      * [deleteUser] - Löscht einen Benutzer.
-     * Erstellt von: [name]
+     * Erstellt von: [Paul Troschke]
      *
      * @param username Der Benutzername des zu löschenden Benutzers.
      * @return True, wenn der Benutzer erfolgreich gelöscht wurde, andernfalls false.
@@ -120,7 +119,7 @@ public class UserController {
 
     /**
      * [createUser] - Erstellt einen neuen Benutzer.
-     * Erstellt von: [name]
+     * Erstellt von: [Paul Troschke]
      *
      * @param username Der Benutzername des neuen Benutzers.
      * @param password Das Passwort des neuen Benutzers.
@@ -134,7 +133,7 @@ public class UserController {
 
     /**
      * [getLockedUsers] - Ruft alle gesperrten Benutzer ab.
-     * Erstellt von: [name]
+     * Erstellt von: [Nick Jokers]
      *
      * @return Eine Liste von gesperrten Benutzern.
      */
@@ -145,7 +144,7 @@ public class UserController {
 
     /**
      * [updateUserRole] - Aktualisiert die Rolle eines Benutzers.
-     * Erstellt von: [name]
+     * Erstellt von: [Nick Jokers]
      *
      * @param username Der Benutzername des Benutzers.
      * @param role Die neue Rolle für den Benutzer.

@@ -11,14 +11,13 @@ import java.util.Map;
 /**
  * Service-Klasse für die Verwaltung der Highscores.
  * Diese Klasse enthält Methoden zum Abrufen, Speichern und Verwalten von Highscores.
- * Erstellt von: [name]
  */
 @Service
 public class HighscoresService {
 
     /**
      * [getHighscores] - Ruft die Top 10 Highscores aus der Datenbank ab.
-     * Erstellt von: [name]
+     * Erstellt von: [Paul Troschke]
      *
      * @return Eine Liste von Maps, die die Highscores enthalten. Jede Map enthält:
      * - "score" (int): Die Punktzahl.
@@ -53,7 +52,7 @@ public class HighscoresService {
 
     /**
      * [saveHighscore] - Speichert einen neuen Highscore oder aktualisiert einen bestehenden.
-     * Erstellt von: [name]
+     * Erstellt von: [Nick Jokers]
      *
      * @param username Der Benutzername des Benutzers.
      * @param score Die Punktzahl, die gespeichert oder aktualisiert werden soll.
@@ -113,7 +112,7 @@ public class HighscoresService {
 
     /**
      * [getAllHighscores] - Ruft alle Highscores aus der Datenbank ab, sortiert nach Punktzahl und Benutzernamen.
-     * Erstellt von: [name]
+     * Erstellt von: [Nick Jokers]
      *
      * @return Eine Liste von Maps, die alle Highscores enthalten. Jede Map enthält:
      * - "score" (int): Die Punktzahl.

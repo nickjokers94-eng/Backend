@@ -10,7 +10,6 @@ import java.util.Map;
 /**
  * Controller-Klasse für die Verwaltung der Highscores.
  * Diese Klasse stellt Endpunkte für das Abrufen und Speichern von Highscores bereit.
- * Erstellt von: [name]
  */
 @RestController
 public class HighscoresController {
@@ -20,7 +19,7 @@ public class HighscoresController {
 
     /**
      * Konstruktor für die Initialisierung des HighscoresService.
-     * Erstellt von: [name]
+     * Erstellt von: [Nick Jokers]
      *
      * @param highscoresService Der Service, der für die Highscore-Verwaltung verwendet wird.
      */
@@ -31,7 +30,7 @@ public class HighscoresController {
 
     /**
      * [getHighscores] - Ruft die Top 10 Highscores ab.
-     * Erstellt von: [name]
+     * Erstellt von: [Paul Troschke]
      *
      * @return Eine Liste von Maps, die die Highscores enthalten.
      */
@@ -42,7 +41,7 @@ public class HighscoresController {
 
     /**
      * [saveHighscore] - Speichert einen neuen Highscore oder aktualisiert einen bestehenden.
-     * Erstellt von: [name]
+     * Erstellt von: [Nick Jokers]
      *
      * @param payload Ein JSON-Objekt, das den Benutzernamen und die Punktzahl enthält.
      */
@@ -55,7 +54,7 @@ public class HighscoresController {
 
     /**
      * [getAllHighscores] - Ruft alle Highscores ab, sortiert nach Punktzahl und Benutzernamen.
-     * Erstellt von: [name]
+     * Erstellt von: [Nick Jokers]
      *
      * @return Eine Liste von Maps, die alle Highscores enthalten.
      */
